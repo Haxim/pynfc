@@ -219,6 +219,18 @@ class NFCReader(object):
         """Takes a uid, reads the card and return data for use in writing the card"""
         key = "\xff\xff\xff\xff\xff\xff"
         print "Reading card", uid.encode("hex")
+        
+        cardnum = uid.encode("hex")
+        deviceid = '97'
+        url = 'https://docs.google.com/forms/d/idofgoogleformASDAFADADSFEAC/formResponse?ifq&entry.1836696001=' + deviceid + '&entry.3119090=' + cardnum + '&submit=Submit'
+        print url
+        response = urllib.urlopen(url).read()
+        pygame.mixer.init()
+        pygame.mixer.music.load("ding.wav")
+        pygame.mixer.music.play()
+        while pygame.mixer.music.get_busy() == True:
+            continue
+        
         self._card_uid = self.select_card()
         self._authenticate(0x00, uid, key)
         block = 0
